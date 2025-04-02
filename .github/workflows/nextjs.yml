@@ -10,10 +10,6 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,15 +20,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-          cache: 'npm'
+      - name: Install dependencies
+        run: |
+          npm install next react react-dom jszip nodemailer
+          npm install --save-dev typescript @types/react @types/node tailwindcss postcss autoprefixer
+      - name: Setup Next.js
+        run: |
+          npx tailwindcss init -p
+          touch tsconfig.json
+      - name: Build
+        run: npx next build
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      - name: Install dependencies
-        run: npm ci
-      - name: Build with Next.js
-        run: npm run build
-      - name: Static HTML export
-        run: npx next export || npx next build && npx next export
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
