@@ -49,7 +49,7 @@ export default function Home() {
       } catch (error) {
         console.error('Error fetching years:', error);
         setError('Failed to fetch available years');
-        errorLogger.logError(error, false);
+        errorLogger.logError(error instanceof Error ? error : String(error), false);
       }
     };
 
