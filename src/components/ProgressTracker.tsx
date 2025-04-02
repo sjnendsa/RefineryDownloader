@@ -64,7 +64,7 @@ export default function ProgressTracker({ downloadId }: { downloadId: number | n
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An error occurred';
       setError(errorMessage);
-      errorLogger.logError(err, false);
+      errorLogger.logError(error instanceof Error ? error : String(error), false);
     }
   };
 
