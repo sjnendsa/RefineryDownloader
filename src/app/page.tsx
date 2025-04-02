@@ -88,7 +88,7 @@ export default function Home() {
       console.error('Error starting download:', error);
       setError('Failed to start download process');
       setIsLoading(false);
-      errorLogger.logError(error, false);
+      errorLogger.logError(error instanceof Error ? error : String(error), false);
     }
   };
 
