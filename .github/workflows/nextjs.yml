@@ -16,30 +16,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "18"
+
       - name: Install dependencies
         run: |
-          npm install next react react-dom jszip nodemailer
-          npm install --save-dev typescript @types/react @types/node tailwindcss postcss autoprefixer
-      - name: Setup Next.js
+          npm install
+
+      - name: Build and Export
         run: |
-          npx tailwindcss init -p
-          touch tsconfig.json
-      - name: Build
-        run: npx next build --no-lint #remove this when checking for more errors and TypeErrors
+          npm run build
+          npm run export
+          touch out/.nojekyll  # prevent GitHub Pages from breaking static routing
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
+          path: out  
 
   deploy:
     environment:
