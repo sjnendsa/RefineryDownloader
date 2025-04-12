@@ -36,6 +36,10 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
 
   deploy:
     environment:
