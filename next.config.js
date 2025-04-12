@@ -1,10 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  experimental: {
-    serverComponentsExternalPackages: ['jszip', 'nodemailer'],
+  output: 'export',
+  images: {
+    unoptimized: true, // disable image optimization
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
